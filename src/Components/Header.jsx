@@ -2,17 +2,25 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Dogs from '../Assets/dogs.svg';
 import './Header.css';
+import { UserContext } from '../UserContext';
 
 const Header = () => {
+  const { data } = React.useContext(UserContext);
   return (
-    <header className='header-header'>
-      <nav className='header-nav container'>
-        <Link className='header-logo' to="/" aria-label="Dogs - Home">
+    <header className="header-header">
+      <nav className="header-nav container">
+        <Link className="header-logo" to="/" aria-label="Dogs - Home">
           <img src={Dogs} alt="cachorro" />
         </Link>
-        <Link className='header-login'to="/login">
-          Login / Criar
-        </Link>
+        {data ? (
+          <Link className="header-login" to="/conta">
+            {data.nome}
+          </Link>
+        ) : (
+          <Link className="header-login" to="/login">
+            Login / Criar
+          </Link>
+        )}
       </nav>
     </header>
   );
